@@ -7,7 +7,7 @@ body {
   height: 100vh;
   background-color: #f7e9d087;
   color: #41c9e2;
-  
+
   display: grid;
   place-items: center;
 }
@@ -18,7 +18,7 @@ body {
 }
 .title {
   color: #008dda;
-  font-size: 45px; 
+  font-size: 45px;
 }
 
 .description {
