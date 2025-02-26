@@ -1,9 +1,9 @@
 "use strict";
-const timerBlock = document.querySelector('.timer'),
-secs = timerBlock.querySelector("#second"),
-min = timerBlock.querySelector("#minute"),
-hour = timerBlock.querySelector("#hour"),
-day = timerBlock.querySelector("#day");
+const timerBlock = document.querySelector(".timer"),
+  sec = timerBlock.querySelector("#second"),
+  min = timerBlock.querySelector("#minute"),
+  hour = timerBlock.querySelector("#hour"),
+  day = timerBlock.querySelector("#day");
 
 function getTimeRemaining(deadLine) {
   const currentTime = Date.parse(new Date());
@@ -22,5 +22,23 @@ function getTimeRemaining(deadLine) {
     days,
   };
 }
-console.log(getTimeRemaining("2026-01-02"));
 
+function setTimer(deadLine) {
+  timerInterval = setInterval(updateTimer, 1000);
+
+  updateTimer();
+  function updateTimer() {
+    const time = getTimeRemaining(deadLine);
+
+    sec.innerHTML = time.secs;
+    min.innerHTML = time.mins;
+    hour.innerHTML = time.hours;
+    day.innerHTML = time.days;
+
+    if (time <= 0) {
+      clearInterval(timerInterval);
+    }
+  }
+}
+
+setTimer("2026-01-02");
