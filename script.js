@@ -30,10 +30,10 @@ function setTimer(deadLine) {
   function updateTimer() {
     const time = getTimeRemaining(deadLine);
 
-    sec.innerHTML = time.secs;
-    min.innerHTML = time.mins;
-    hour.innerHTML = time.hours;
-    day.innerHTML = time.days;
+    sec.innerHTML = addZero(time.secs);
+    min.innerHTML = addZero(time.mins);
+    hour.innerHTML = addZero(time.hours);
+    day.innerHTML = addZero(time.days);
 
     if (time <= 0) {
       clearInterval(timerInterval);
@@ -41,4 +41,12 @@ function setTimer(deadLine) {
   }
 }
 
-setTimer("2026-01-02");
+function addZero(num) {
+  if (num >= 0 && num < 10) {
+    return `0${num}`;
+  } else {
+    return num;
+  }
+}
+
+setTimer("2026-01-09");
