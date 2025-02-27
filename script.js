@@ -1,17 +1,11 @@
 "use strict";
-const timerBlock = document.querySelector(".timer"),
-  sec = timerBlock.querySelector("#second"),
-  min = timerBlock.querySelector("#minute"),
-  hour = timerBlock.querySelector("#hour"),
-  day = timerBlock.querySelector("#day");
-
 function getTimeRemaining(deadLine) {
   const currentTime = Date.parse(new Date());
 
   const milis = Date.parse(deadLine) - currentTime,
     secs = Math.floor((milis / 1000) % 60),
     mins = Math.floor((milis / 1000 / 60) % 60),
-    hours = Math.floor(((milis / 1000) * 60 * 60) % 24),
+    hours = Math.floor((milis / (1000 * 60 * 60)) % 24),
     days = Math.floor(milis / (1000 * 60 * 60 * 24));
 
   return {
@@ -23,19 +17,24 @@ function getTimeRemaining(deadLine) {
   };
 }
 
-function setTimer(deadLine) {
-  timerInterval = setInterval(updateTimer, 1000);
+function setTimer(selector, deadLine) {
+  const timerBlock = document.querySelector(selector),
+    sec = timerBlock.querySelector("#second"),
+    min = timerBlock.querySelector("#minute"),
+    hour = timerBlock.querySelector("#hour"),
+    day = timerBlock.querySelector("#day"),
+    timerInterval = setInterval(updateTimer, 1000);
 
   updateTimer();
+
   function updateTimer() {
-    const time = getTimeRemaining(deadLine);
+    const timeLeft = getTimeRemaining(deadLine);
+    sec.innerHTML = addZero(timeLeft.secs);
+    min.innerHTML = addZero(timeLeft.mins);
+    hour.innerHTML = addZero(timeLeft.hours);
+    day.innerHTML = addZero(timeLeft.days);
 
-    sec.innerHTML = addZero(time.secs);
-    min.innerHTML = addZero(time.mins);
-    hour.innerHTML = addZero(time.hours);
-    day.innerHTML = addZero(time.days);
-
-    if (time <= 0) {
+    if (timeLeft <= 0) {
       clearInterval(timerInterval);
     }
   }
@@ -49,4 +48,4 @@ function addZero(num) {
   }
 }
 
-setTimer("2026-01-09");
+setTimer(".timer", "2026-01-09");
