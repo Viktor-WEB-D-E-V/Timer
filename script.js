@@ -1,12 +1,19 @@
 "use strict";
-function getTimeRemaining(deadLine) {
+function getTimeRemaining(selector, deadLine) {
+  let secs, mins, hours, days;
   const currentTime = Date.parse(new Date());
+  const milis = Date.parse(deadLine) - currentTime;
 
-  const milis = Date.parse(deadLine) - currentTime,
-    secs = Math.floor((milis / 1000) % 60),
-    mins = Math.floor((milis / 1000 / 60) % 60),
-    hours = Math.floor((milis / (1000 * 60 * 60)) % 24),
-    days = Math.floor(milis / (1000 * 60 * 60 * 24));
+  if (milis <= 0) {
+    const timer = document.querySelector(selector);
+    console.log(timer);
+    timer.innerHTML = "<p class='text-timer-done'>The timer has completed the work</p>";
+  } else {
+    (secs = Math.floor((milis / 1000) % 60)),
+      (mins = Math.floor((milis / 1000 / 60) % 60)),
+      (hours = Math.floor((milis / (1000 * 60 * 60)) % 24)),
+      (days = Math.floor(milis / (1000 * 60 * 60 * 24)));
+  }
 
   return {
     milis,
@@ -28,13 +35,13 @@ function setTimer(selector, deadLine) {
   updateTimer();
 
   function updateTimer() {
-    const timeLeft = getTimeRemaining(deadLine);
+    const timeLeft = getTimeRemaining(selector, deadLine);
     sec.innerHTML = addZero(timeLeft.secs);
     min.innerHTML = addZero(timeLeft.mins);
     hour.innerHTML = addZero(timeLeft.hours);
     day.innerHTML = addZero(timeLeft.days);
 
-    if (timeLeft <= 0) {
+    if (timeLeft.milis <= 0) {
       clearInterval(timerInterval);
     }
   }

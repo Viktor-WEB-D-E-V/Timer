@@ -44,3 +44,12 @@ body {
   margin-top: 10px;
   font-size: 20px;
 }
+.text-timer-done {
+  width: 100%;
+  min-width: 100px;
+  color: #f4ebdb;
+  background-color: #41c9e2;
+  border-radius: 10px;
+  padding: 20px;
+  font-size: xx-large;
+}
